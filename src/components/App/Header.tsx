@@ -10,6 +10,7 @@ const Header: React.FC = () => {
           <li><Link to="/price">По цене</Link></li>
           <li><Link to="/make-model">По марке-модели</Link></li>
           <li><Link to="/region">По региону</Link></li>
+          <li><Link to="/advanced-search">Расширенный поиск</Link></li> 
         </ul>
       </nav>
     </header>
