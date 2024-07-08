@@ -53,7 +53,7 @@ const PriceSearch: React.FC = () => {
           vin: plate.digits,
           region: plate.department.title,
           price: 0,
-          photoUrl: plate.photo_url || 'https://baza-gai.com.ua/catalog-images/bmw/image.jpg',
+          photoUrl: plate.photo_url || 'https://baza-gai.com.ua/catalog-images/image.jpg',
           operation: plate.operation,
           department: plate.department,
           registered_at: plate.registered_at,

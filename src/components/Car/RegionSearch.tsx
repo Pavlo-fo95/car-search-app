@@ -52,7 +52,7 @@ const RegionSearch: React.FC = () => {
         vin: plate.digits,
         region: plate.department.title,
         price: 0,
-        photoUrl: 'https://baza-gai.com.ua/catalog-images/bmw/image.jpg',
+        photoUrl: 'https://baza-gai.com.ua/catalog-images/image.jpg',
         operation: plate.operation,
         department: plate.department,
         registered_at: plate.registered_at,

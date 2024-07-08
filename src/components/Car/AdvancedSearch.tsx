@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AdvancedSearch.css';
+import axios from 'axios';
 
 const AdvancedSearch: React.FC = () => {
   const [query, setQuery] = useState<string>('');
@@ -17,74 +17,148 @@ const AdvancedSearch: React.FC = () => {
   const [registrationFrom, setRegistrationFrom] = useState<number | undefined>();
   const [registrationTo, setRegistrationTo] = useState<number | undefined>();
   const [koatuu, setKoatuu] = useState<string>('');
+  const [results, setResults] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSearch = () => {
-    // Implement search functionality here
+  const handleSearch = async () => {
+    try {
+      const response = await axios.get('https://baza-gai.com.ua/search', {
+        headers: {
+          'Accept': 'application/json',
+          'X-Api-Key': '4be117af1dbedbd5ed4f49f8298805cb',
+        },
+        params: {
+          query,
+          manufacturer,
+          model,
+          yearFrom,
+          yearTo,
+          region,
+          color,
+          engine,
+          volumeFrom,
+          volumeTo,
+          bodyType,
+          operation,
+          registrationFrom,
+          registrationTo,
+          koatuu
+        },
+      });
+      setResults(response.data.results);
+      setError(null);
+    } catch (error) {
+      setError('Error fetching data');
+    }
   };
 
   return (
-    <div className="advanced-search">
-      <h2>Проверка авто по номеру и VIN</h2>
-      <div className="basic-search">
-        <input 
-          type="text" 
-          value={query} 
-          onChange={(e) => setQuery(e.target.value)} 
-          placeholder="Номерной знак или VIN" 
-        />
-        <button onClick={handleSearch}>Поиск</button>
-        <a href="#" className="advanced-search-link">Расширенный поиск</a>
-      </div>
-      <div className="advanced-search-fields">
-        <div className="field-group">
-          <label>Производитель</label>
-          <input type="text" value={manufacturer} onChange={(e) => setManufacturer(e.target.value)} placeholder="-" />
+    <div>
+      <h2>Расширенный поиск</h2>
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Номерной знак или VIN"
+      />
+      <input
+        type="text"
+        value={manufacturer}
+        onChange={(e) => setManufacturer(e.target.value)}
+        placeholder="Производитель"
+      />
+      <input
+        type="text"
+        value={model}
+        onChange={(e) => setModel(e.target.value)}
+        placeholder="Модель"
+      />
+      <input
+        type="number"
+        value={yearFrom}
+        onChange={(e) => setYearFrom(parseInt(e.target.value))}
+        placeholder="Год выпуска от"
+      />
+      <input
+        type="number"
+        value={yearTo}
+        onChange={(e) => setYearTo(parseInt(e.target.value))}
+        placeholder="Год выпуска до"
+      />
+      <input
+        type="text"
+        value={region}
+        onChange={(e) => setRegion(e.target.value)}
+        placeholder="Область"
+      />
+      <input
+        type="text"
+        value={color}
+        onChange={(e) => setColor(e.target.value)}
+        placeholder="Цвет"
+      />
+      <input
+        type="text"
+        value={engine}
+        onChange={(e) => setEngine(e.target.value)}
+        placeholder="Двигатель"
+      />
+      <input
+        type="number"
+        value={volumeFrom}
+        onChange={(e) => setVolumeFrom(parseInt(e.target.value))}
+        placeholder="Объем от"
+      />
+      <input
+        type="number"
+        value={volumeTo}
+        onChange={(e) => setVolumeTo(parseInt(e.target.value))}
+        placeholder="Объем до"
+      />
+      <input
+        type="text"
+        value={bodyType}
+        onChange={(e) => setBodyType(e.target.value)}
+        placeholder="Тип кузова"
+      />
+      <input
+        type="text"
+        value={operation}
+        onChange={(e) => setOperation(e.target.value)}
+        placeholder="Операция"
+      />
+      <input
+        type="number"
+        value={registrationFrom}
+        onChange={(e) => setRegistrationFrom(parseInt(e.target.value))}
+        placeholder="Регистрация от"
+      />
+      <input
+        type="number"
+        value={registrationTo}
+        onChange={(e) => setRegistrationTo(parseInt(e.target.value))}
+        placeholder="Регистрация до"
+      />
+      <input
+        type="text"
+        value={koatuu}
+        onChange={(e) => setKoatuu(e.target.value)}
+        placeholder="Код КОАТУУ"
+      />
+      <button onClick={handleSearch}>Поиск</button>
+
+      {error && <div>{error}</div>}
+
+      {results.length > 0 && (
+        <div>
+          <h3>Результаты поиска:</h3>
+          <ul>
+            {results.map((result, index) => (
+              <li key={index}>{result.title}</li> 
+            ))}
+          </ul>
         </div>
-        <div className="field-group">
-          <label>Модель</label>
-          <input type="text" value={model} onChange={(e) => setModel(e.target.value)} placeholder="-" />
-        </div>
-        <div className="field-group">
-          <label>Год выпуска</label>
-          <input type="number" value={yearFrom} onChange={(e) => setYearFrom(Number(e.target.value))} placeholder="От" />
-          <input type="number" value={yearTo} onChange={(e) => setYearTo(Number(e.target.value))} placeholder="До" />
-        </div>
-        <div className="field-group">
-          <label>Область</label>
-          <input type="text" value={region} onChange={(e) => setRegion(e.target.value)} placeholder="Вся Украина" />
-        </div>
-        <div className="field-group">
-          <label>Цвет</label>
-          <input type="text" value={color} onChange={(e) => setColor(e.target.value)} placeholder="Любой" />
-        </div>
-        <div className="field-group">
-          <label>Двигатель</label>
-          <input type="text" value={engine} onChange={(e) => setEngine(e.target.value)} placeholder="Любой" />
-        </div>
-        <div className="field-group">
-          <label>Объем</label>
-          <input type="number" value={volumeFrom} onChange={(e) => setVolumeFrom(Number(e.target.value))} placeholder="От" />
-          <input type="number" value={volumeTo} onChange={(e) => setVolumeTo(Number(e.target.value))} placeholder="До" />
-        </div>
-        <div className="field-group">
-          <label>Тип кузова</label>
-          <input type="text" value={bodyType} onChange={(e) => setBodyType(e.target.value)} placeholder="Цистерна д/п небез. вантаж" />
-        </div>
-        <div className="field-group">
-          <label>Операция</label>
-          <input type="text" value={operation} onChange={(e) => setOperation(e.target.value)} placeholder="Любая" />
-        </div>
-        <div className="field-group">
-          <label>Регистрация</label>
-          <input type="number" value={registrationFrom} onChange={(e) => setRegistrationFrom(Number(e.target.value))} placeholder="2013" />
-          <input type="number" value={registrationTo} onChange={(e) => setRegistrationTo(Number(e.target.value))} placeholder="2024" />
-        </div>
-        <div className="field-group">
-          <label>КОАТУУ</label>
-          <input type="text" value={koatuu} onChange={(e) => setKoatuu(e.target.value)} placeholder="Код КОАТУУ" />
-        </div>
-        <button className="search-button" onClick={handleSearch}>Поиск</button>
-      </div>
+      )}
     </div>
   );
 };
