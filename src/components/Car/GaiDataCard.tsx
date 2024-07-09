@@ -30,7 +30,7 @@ const GaiDataCard: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get('https://baza-gai.com.ua/make/lamborghini/huracan', {
+    axios.get('https://baza-gai.com.ua/search', {
       headers: {
         'Accept': 'application/json',
         'X-Api-Key': '4be117af1dbedbd5ed4f49f8298805cb'  

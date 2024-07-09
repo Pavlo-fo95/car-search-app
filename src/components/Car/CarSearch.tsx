@@ -1,30 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import CarCard from './CarCard';
+import Paginator from '../Pagination/Paginator';
 import AnimationWrapper from '../Animations/AnimationWrapper';
+import { Car } from './Car';
+import CarCard from './CarCard';
 import './CarCard.css';
 
-interface Car {
-  id: string;
-  vin: string;
-  region: string;
-  price: number;
-  photoUrl: string;
-  operation: {
-    group: string;
-    code: number;
-    title_ru: string;
-    title_uk: string;
-  };
-  department: {
-    title: string;
-    address: string;
-  };
-  registered_at: string;
-  model_year: number;
-  notes: string;
-  [key: string]: any;
-}
 const CarSearch: React.FC = () => {
   const [cars, setCars] = useState<Car[]>([]);
   const [page, setPage] = useState<number>(0);
@@ -43,6 +24,7 @@ const CarSearch: React.FC = () => {
         vin: plate.digits,
         region: plate.department.title,
         price: 0,
+        photoUrl: plate.photo_url || '',
         operation: plate.operation,
         department: plate.department,
         registered_at: plate.registered_at,
@@ -62,12 +44,13 @@ const CarSearch: React.FC = () => {
   return (
     <div>
       <div>
-        {cars.slice(page * 1, (page + 1) * 1).map(car => (
+        {cars.slice(page * 10, (page + 1) * 10).map(car => (
           <AnimationWrapper key={car.id}>
             <CarCard car={car} />
           </AnimationWrapper>
         ))}
       </div>
+      <Paginator pageCount={Math.ceil(cars.length / 10)} onPageChange={handlePageClick} />
     </div>
   );
 };

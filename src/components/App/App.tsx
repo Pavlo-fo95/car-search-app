@@ -7,7 +7,8 @@ import RegionSearch from '../Car/RegionSearch';
 import ComparePage from '../App/ComparePage';
 import CompareIcon from '../App/CompareIcon';
 import Header from '../App/Header';
-import AdvancedSearch from '../Car/AdvancedSearch'; // Импортируем компонент расширенного поиска
+import AdvancedSearch from '../Car/AdvancedSearch';
+import MapView from '../Car/MapView'; 
 import './App.css';
 import { CompareProvider } from '../contexts/CompareContext';
 
@@ -24,7 +25,8 @@ const App: React.FC = () => {
             <Route path="/make-model" element={<MakeModelSearch />} />
             <Route path="/region" element={<RegionSearch />} />
             <Route path="/compare" element={<ComparePage />} />
-            <Route path="/advanced-search" element={<AdvancedSearch />} /> 
+            <Route path="/advanced-search" element={<AdvancedSearch />} />
+            <Route path="/map" element={<MapView />} /> 
           </Routes>
         </div>
       </Router>

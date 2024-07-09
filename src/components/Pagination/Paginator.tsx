@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
+import './Paginator.css';
 
 interface PaginatorProps {
   pageCount: number;
@@ -12,6 +13,7 @@ const Paginator: React.FC<PaginatorProps> = ({ pageCount, onPageChange }) => {
       previousLabel={'previous'}
       nextLabel={'next'}
       breakLabel={'...'}
+      breakClassName={'break-me'}
       pageCount={pageCount}
       marginPagesDisplayed={2}
       pageRangeDisplayed={5}
@@ -22,4 +24,4 @@ const Paginator: React.FC<PaginatorProps> = ({ pageCount, onPageChange }) => {
   );
 };
 
-export default Paginator; 
+export default Paginator;

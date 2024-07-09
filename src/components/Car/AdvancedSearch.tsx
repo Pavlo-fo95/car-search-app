@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './AdvancedSearch.css';
 
 const AdvancedSearch: React.FC = () => {
   const [query, setQuery] = useState<string>('');
@@ -17,8 +18,6 @@ const AdvancedSearch: React.FC = () => {
   const [registrationFrom, setRegistrationFrom] = useState<number | undefined>();
   const [registrationTo, setRegistrationTo] = useState<number | undefined>();
   const [koatuu, setKoatuu] = useState<string>('');
-  const [results, setResults] = useState<any[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   const handleSearch = async () => {
     try {
@@ -31,134 +30,95 @@ const AdvancedSearch: React.FC = () => {
           query,
           manufacturer,
           model,
-          yearFrom,
-          yearTo,
+          year_from: yearFrom,
+          year_to: yearTo,
           region,
           color,
           engine,
-          volumeFrom,
-          volumeTo,
-          bodyType,
+          volume_from: volumeFrom,
+          volume_to: volumeTo,
+          body_type: bodyType,
           operation,
-          registrationFrom,
-          registrationTo,
-          koatuu
+          registered_from: registrationFrom,
+          registered_to: registrationTo,
+          koatuu,
         },
       });
-      setResults(response.data.results);
-      setError(null);
+
+      console.log('Response data:', response.data);
     } catch (error) {
-      setError('Error fetching data');
+      console.error('Error fetching data:', error);
     }
   };
 
   return (
-    <div>
+    <div className="advanced-search">
       <h2>Расширенный поиск</h2>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Номерной знак или VIN"
-      />
-      <input
-        type="text"
-        value={manufacturer}
-        onChange={(e) => setManufacturer(e.target.value)}
-        placeholder="Производитель"
-      />
-      <input
-        type="text"
-        value={model}
-        onChange={(e) => setModel(e.target.value)}
-        placeholder="Модель"
-      />
-      <input
-        type="number"
-        value={yearFrom}
-        onChange={(e) => setYearFrom(parseInt(e.target.value))}
-        placeholder="Год выпуска от"
-      />
-      <input
-        type="number"
-        value={yearTo}
-        onChange={(e) => setYearTo(parseInt(e.target.value))}
-        placeholder="Год выпуска до"
-      />
-      <input
-        type="text"
-        value={region}
-        onChange={(e) => setRegion(e.target.value)}
-        placeholder="Область"
-      />
-      <input
-        type="text"
-        value={color}
-        onChange={(e) => setColor(e.target.value)}
-        placeholder="Цвет"
-      />
-      <input
-        type="text"
-        value={engine}
-        onChange={(e) => setEngine(e.target.value)}
-        placeholder="Двигатель"
-      />
-      <input
-        type="number"
-        value={volumeFrom}
-        onChange={(e) => setVolumeFrom(parseInt(e.target.value))}
-        placeholder="Объем от"
-      />
-      <input
-        type="number"
-        value={volumeTo}
-        onChange={(e) => setVolumeTo(parseInt(e.target.value))}
-        placeholder="Объем до"
-      />
-      <input
-        type="text"
-        value={bodyType}
-        onChange={(e) => setBodyType(e.target.value)}
-        placeholder="Тип кузова"
-      />
-      <input
-        type="text"
-        value={operation}
-        onChange={(e) => setOperation(e.target.value)}
-        placeholder="Операция"
-      />
-      <input
-        type="number"
-        value={registrationFrom}
-        onChange={(e) => setRegistrationFrom(parseInt(e.target.value))}
-        placeholder="Регистрация от"
-      />
-      <input
-        type="number"
-        value={registrationTo}
-        onChange={(e) => setRegistrationTo(parseInt(e.target.value))}
-        placeholder="Регистрация до"
-      />
-      <input
-        type="text"
-        value={koatuu}
-        onChange={(e) => setKoatuu(e.target.value)}
-        placeholder="Код КОАТУУ"
-      />
-      <button onClick={handleSearch}>Поиск</button>
-
-      {error && <div>{error}</div>}
-
-      {results.length > 0 && (
-        <div>
-          <h3>Результаты поиска:</h3>
-          <ul>
-            {results.map((result, index) => (
-              <li key={index}>{result.title}</li> 
-            ))}
-          </ul>
+      <form>
+        <div className="form-group">
+          <label htmlFor="query">Запрос</label>
+          <input id="query" type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
         </div>
-      )}
+        <div className="form-group">
+          <label htmlFor="manufacturer">Производитель</label>
+          <input id="manufacturer" type="text" value={manufacturer} onChange={(e) => setManufacturer(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="model">Модель</label>
+          <input id="model" type="text" value={model} onChange={(e) => setModel(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="yearFrom">Год выпуска от</label>
+          <input id="yearFrom" type="number" value={yearFrom} onChange={(e) => setYearFrom(Number(e.target.value))} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="yearTo">Год выпуска до</label>
+          <input id="yearTo" type="number" value={yearTo} onChange={(e) => setYearTo(Number(e.target.value))} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="region">Регион</label>
+          <input id="region" type="text" value={region} onChange={(e) => setRegion(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="color">Цвет</label>
+          <input id="color" type="text" value={color} onChange={(e) => setColor(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="engine">Тип двигателя</label>
+          <input id="engine" type="text" value={engine} onChange={(e) => setEngine(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="volumeFrom">Объем двигателя от</label>
+          <input id="volumeFrom" type="number" value={volumeFrom} onChange={(e) => setVolumeFrom(Number(e.target.value))} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="volumeTo">Объем двигателя до</label>
+          <input id="volumeTo" type="number" value={volumeTo} onChange={(e) => setVolumeTo(Number(e.target.value))} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="bodyType">Тип кузова</label>
+          <input id="bodyType" type="text" value={bodyType} onChange={(e) => setBodyType(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="operation">Операция</label>
+          <input id="operation" type="text" value={operation} onChange={(e) => setOperation(e.target.value)} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="registrationFrom">Регистрация от</label>
+          <input id="registrationFrom" type="number" value={registrationFrom} onChange={(e) => setRegistrationFrom(Number(e.target.value))} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="registrationTo">Регистрация до</label>
+          <input id="registrationTo" type="number" value={registrationTo} onChange={(e) => setRegistrationTo(Number(e.target.value))} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="koatuu">KOATUU</label>
+          <input id="koatuu" type="text" value={koatuu} onChange={(e) => setKoatuu(e.target.value)} />
+        </div>
+        <div className="buttons">
+          <button type="button" onClick={handleSearch}>Поиск</button>
+        </div>
+      </form>
     </div>
   );
 };

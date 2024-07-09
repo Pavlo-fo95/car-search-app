@@ -1,31 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import CarCard from './CarCard';
+import { Car } from './Car';
 import Paginator from '../Pagination/Paginator';
 import './CarCard.css';
 
-interface Car {
-  id: string;
-  vin: string;
-  region: string;
-  price: number;
-  photoUrl: string; // Добавляем это свойство
-  operation: {
-    group: string;
-    code: number;
-    title_ru: string;
-    title_uk: string;
-  };
-  department: {
-    title: string;
-    address: string;
-  };
-  registered_at: string;
-  model_year: number;
-  notes: string;
-  [key: string]: any; // Добавляем для динамических ключей
-}
-
+ 
 const RegionSearch: React.FC = () => {
   const [region, setRegion] = useState<string>('');
   const [cars, setCars] = useState<Car[]>([]);

@@ -1,31 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CarCard from './CarCard';
+import { Car } from './Car';
 import Paginator from '../Pagination/Paginator';
 import './CarCard.css';
-
-interface Car {
-  id: string;
-  vin: string;
-  region: string;
-  price: number;
-  photoUrl: string;
-  operation: {
-    group: string;
-    code: number;
-    title_ru: string;
-    title_uk: string;
-  };
-  department: {
-    title: string;
-    address: string;
-  };
-  registered_at: string;
-  model_year: number;
-  notes: string;
-  [key: string]: any;
-}
-
+ 
 const MakeModelSearch: React.FC = () => {
   const [cars, setCars] = useState<Car[]>([]);
   const [page, setPage] = useState<number>(0);
@@ -40,8 +19,8 @@ const MakeModelSearch: React.FC = () => {
             'X-Api-Key': '4be117af1dbedbd5ed4f49f8298805cb'
         },
         params: {
-          vendor: 'mercedes-benz', // замените на нужного производителя
-          catalog_model: 'c-klasse', // замените на нужную модель
+          vendor: 'bmw',  
+          catalog_model: 'c-klasse',  
         }
       });
 

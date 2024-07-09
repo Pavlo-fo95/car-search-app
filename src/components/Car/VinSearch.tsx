@@ -2,28 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import CarCard from './CarCard';
 import Paginator from '../Pagination/Paginator';
-import './CarCard.css';
-
-interface Car {
-  id: string;
-  vin: string;
-  region: string;
-  price: number;
-  photoUrl: string;
-  operation: {
-    group: string;
-    code: number;
-    title_ru: string;
-    title_uk: string;
-  };
-  department: {
-    title: string;
-    address: string;
-  };
-  registered_at: string;
-  model_year: number;
-  notes: string;
-}
+import './VinSearch.css';
+import { Car } from './Car'; 
 
 const VinSearch: React.FC = () => {
   const [query, setQuery] = useState<string>('');
@@ -44,17 +24,25 @@ const VinSearch: React.FC = () => {
           vin: plate.digits,
           region: plate.department.title,
           price: 0,
-          photoUrl: plate.photo_url || 'https://baza-gai.com.ua/catalog-images/image.jpg',
-          operation: plate.operation,
-          department: plate.department,
+          photoUrl: plate.photo_url || '', 
+          operation: {
+            group: plate.operation.group,
+            code: plate.operation.code,
+            title_ru: plate.operation.title_ru || 'Поиск', 
+            title_uk: plate.operation.title_uk,
+          },
+          department: {
+            title: plate.department.title,
+            address: plate.department.address || 'https://baza-gai.com.ua',
+          },
           registered_at: plate.registered_at,
           model_year: plate.model_year,
-          notes: plate.notes
+          notes: plate.notes,
         }));
 
         setCars(formattedCars);
         setError(null);
-        setPage(0); // Сброс страницы после поиска
+        setPage(0); 
       } else {
         setCars([]);
         setError('No cars found');
@@ -70,7 +58,7 @@ const VinSearch: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="vin-search">
       <input 
         type="text" 
         value={query} 
