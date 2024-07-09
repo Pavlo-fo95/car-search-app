@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/car-search-app/static/css/main.2dd316cc.css",
-    "main.js": "/car-search-app/static/js/main.c2b8ecfc.js",
-    "static/js/453.7c9ab078.chunk.js": "/car-search-app/static/js/453.7c9ab078.chunk.js",
+    "main.css": "/car-search-app/static/css/main.9b31f6db.css",
+    "main.js": "/car-search-app/static/js/main.f6251d7c.js",
+    "static/js/453.298747f8.chunk.js": "/car-search-app/static/js/453.298747f8.chunk.js",
     "index.html": "/car-search-app/index.html",
-    "main.2dd316cc.css.map": "/car-search-app/static/css/main.2dd316cc.css.map",
-    "main.c2b8ecfc.js.map": "/car-search-app/static/js/main.c2b8ecfc.js.map",
-    "453.7c9ab078.chunk.js.map": "/car-search-app/static/js/453.7c9ab078.chunk.js.map"
+    "main.9b31f6db.css.map": "/car-search-app/static/css/main.9b31f6db.css.map",
+    "main.f6251d7c.js.map": "/car-search-app/static/js/main.f6251d7c.js.map",
+    "453.298747f8.chunk.js.map": "/car-search-app/static/js/453.298747f8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2dd316cc.css",
-    "static/js/main.c2b8ecfc.js"
+    "static/css/main.9b31f6db.css",
+    "static/js/main.f6251d7c.js"
   ]
 }
